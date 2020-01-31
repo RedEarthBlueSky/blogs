@@ -1,0 +1,10 @@
+{
+  "extends": "rallycoding",
+
+  "globals": {
+    "fetch": false,
+  },
+  "rules": {
+    "semi": [ "error", "never" ],
+  },
+}
