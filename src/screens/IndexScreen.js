@@ -12,7 +12,7 @@ const IndexScreen = () => {
     <View>
       <Text style={h1}>Index Screen</Text>
     <FlatList
-      keyExtractor={(blogPosts) => blogPosts.title}
+      keyExtractor={(blogPost) => blogPost.title}
       render={({ item }) =>{
         return <Text>{item.title}</Text>
       }}

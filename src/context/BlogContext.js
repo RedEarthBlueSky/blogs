@@ -1,18 +1,20 @@
-import React, { createContext } from 'react'
-
+import React, { createContext, useState } from 'react'
 //  create context object
 const BlogContext = createContext()
 
-// provider accepts information and provides it down the the rest of the app
-// used to reach deeply nested components
+// provider accepts information and provides it down
+// to reach deeply nested components
 export const BlogProvider = ({ children }) => {
-  const blogPosts = [
-    { title: 'Blog Post #1' },
-    { title: 'Blog Post #2' },
-    { title: 'Blog Post #1' },
-  ]
+  const [blogPosts, setBlogPosts] = useState([])
+
+  const addBlogPost = () => {
+    setBlogPosts(
+      [...blogPosts, { title: `Blog Post #${blogPosts.length + 1}` }]
+    )
+  }
+
   return (
-    <BlogContext.Provider value={blogPosts}>
+    <BlogContext.Provider value={{ data: blogPosts, addBlogPost }}>
       {children}
     </BlogContext.Provider>
   )
