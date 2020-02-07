@@ -1,25 +1,35 @@
 import React, { useContext } from 'react'
-import { View, Text, FlatList, Button } from 'react-native'
-// import the context object
-import BlogContext from '../context/BlogContext'
+import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native'
+import { Feather } from '@expo/vector-icons'
+
+import { Context as BlogContext } from '../context/BlogContext'
 import styles from './styles/screenStyles'
 
 const IndexScreen = () => {
-  const { h1 } = styles
-  const { blogData, addBlogPost } = useContext(BlogContext)
+  const { h2, row, icon } = styles
+  const { state, addBlogPost } = useContext(BlogContext)
 
   return (
     <View>
-      <Text style={h1}>Index Screen: </Text>
       <Button
         title={'Add Post'}
         onPress={addBlogPost}
       />
       <FlatList
-        data={blogData}
-        keyExtractor={(blogPost) => blogPost.title}
+        data={state}
+        keyExtractor={(blogPost) => console.log(blogPost) }
         renderItem={({ item }) =>{
-          return <Text>{item.title}</Text>
+          return (
+            <View style={row} key={item.id}>
+              <Text style={h2}>{item.id}: {item.title}</Text>
+              <TouchableOpacity>
+                <Feather
+                  style={icon}
+                  name='trash'
+                />
+              </TouchableOpacity>
+            </View>
+          )
         }}
       />
     </View>
