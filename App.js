@@ -3,16 +3,19 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { Provider } from './src/context/BlogContext'
 
-import { IndexScreen } from './src/screens'
+import { CreateScreen, EditScreen, IndexScreen, ShowScreen } from './src/screens'
 
 const navigator = createStackNavigator(
   {
     Index: IndexScreen,
+    Create: CreateScreen,
+    Show: ShowScreen,
+    Edit: EditScreen,
   },
   {
     initialRouteName: 'Index',
     defaultNavigationOptions: {
-      title: 'Blogs'
+      title: 'Blog List'
     }
   }
 )

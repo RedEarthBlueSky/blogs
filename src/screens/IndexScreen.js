@@ -1,43 +1,54 @@
 import React, { useContext } from 'react'
-import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 
 import { Feather } from '@expo/vector-icons'
 import { Context as BlogContext } from '../context/BlogContext'
 import styles from './styles/screenStyles'
 
-const IndexScreen = () => {
+const IndexScreen = ({ navigation }) => {
   const { h2, row, icon } = styles
-  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext)
+  const { state, deleteBlogPost } = useContext(BlogContext)
 
   return (
     <View>
-      <Button
-        title={'Add Post'}
-        onPress={addBlogPost}
-      />
+      <Text>Index Screen</Text>
       <FlatList
         data={state}
-        keyExtractor={(blogPost) => console.log(blogPost) }
-        renderItem={({ item }) =>{
+        keyExtractor={blogPost => blogPost.id}
+        renderItem={({ item }) => {
           return (
-            <View style={row} key={item.id}>
-              <Text style={h2}>{item.id}: {item.title}</Text>
-              <TouchableOpacity
-                onPress={() => deleteBlogPost(item.id)}
-                key={item.id}
-              >
-                <Feather
-                  key={item.id}
-                  style={icon}
-                  name='trash'
-                />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Show', { id: item.id })
+              }}
+            >
+              <View style={row}>
+                <Text style={h2}>{item.title}</Text>
+                <Text>{item.id}</Text>
+                <Text>{item.content}</Text>
+                <TouchableOpacity
+                  onPress={() => deleteBlogPost(item.id)}
+                >
+                  <Feather
+                    style={icon}
+                    name='trash'
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           )
         }}
       />
     </View>
   )
+}
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+                   <Feather name='plus-circle' size={30} />
+                 </TouchableOpacity>
+  }
 }
 
 export { IndexScreen }
