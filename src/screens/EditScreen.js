@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { Context } from '../context/BlogContext'
 import BlogPostForm from '../components/BlogPostForm'
@@ -12,10 +12,16 @@ const EditScreen = ({ navigation }) => {
     return blogPost.id === id
   })
 
+  const { title, content } = post
+
   return (
     <View>
       <BlogPostForm
+        initialValues={{ id, title, content }}
         screen='Edit'
+        onSubmit={() => {
+          console.log('from edit screen submit - ', id, title, content)
+        }}
       />
     </View>
   )

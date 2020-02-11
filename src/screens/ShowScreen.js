@@ -6,11 +6,12 @@ import { Context as BlogContext } from '../context/BlogContext'
 import styles from './styles/screenStyles'
 
 const ShowScreen = ({ navigation }) => {
-
   const { state } = useContext(BlogContext)
   const id = navigation.getParam('id')
 
-  const post = state.find((blogPost) => blogPost.id === id)
+  const post = state.find(
+    blogPost => blogPost.id === id
+  )
 
   return (
     <View>
@@ -23,11 +24,14 @@ const ShowScreen = ({ navigation }) => {
 }
 
 ShowScreen.navigationOptions = ({ navigation }) => {
-  const id = navigation.getParam('id')
   return {
     title: 'Blog Detail',
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate('Edit', { id })}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Edit', { id: navigation.getParam('id') })
+        }
+      >
         <EvilIcons name='pencil' size={40} />
       </TouchableOpacity>
     )

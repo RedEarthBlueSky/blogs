@@ -4,9 +4,9 @@ import { View, Text, TextInput, Button } from 'react-native'
 import styles from './styles/componentStyles'
 
 const BlogPostForm = (props) => {
-  const { screen } = props
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const { screen, onSubmit, initialValues } = props
+  const [title, setTitle] = useState(initialValues.title)
+  const [content, setContent] = useState(initialValues.content)
 
   return (
     <View>
@@ -25,9 +25,18 @@ const BlogPostForm = (props) => {
       />
       <Button
         title={`Save ${screen}`}
+        onPress={() => onSubmit(title, content)}
       />
     </View>
   )
+}
+
+//  react will check for default props
+BlogPostForm.defaultProps = {
+  initialValues: {
+    title: '',
+    content: '',
+  }
 }
 
 export default BlogPostForm
