@@ -1,26 +1,30 @@
 import React, { useContext } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 import { Context } from '../context/BlogContext'
 import BlogPostForm from '../components/BlogPostForm'
 
 const EditScreen = ({ navigation }) => {
   const id = navigation.getParam('id')
-  const { state } = useContext(Context)
+  const { state, editBlogPost } = useContext(Context)
 
-  const post = state.find((blogPost) => {
+  const blogPost = state.find((blogPost) => {
     return blogPost.id === id
   })
-
-  const { title, content } = post
 
   return (
     <View>
       <BlogPostForm
-        initialValues={{ id, title, content }}
+        initialValues={{
+          id: blogPost.id,
+          title: blogPost.title,
+          content: blogPost.content
+        }}
         screen='Edit'
-        onSubmit={() => {
-          console.log('from edit screen submit - ', id, title, content)
+        onSubmit={(title, content) => {
+          editBlogPost(id, title, content, () => {
+            navigation.pop()
+          })
         }}
       />
     </View>
