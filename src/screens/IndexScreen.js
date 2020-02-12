@@ -10,7 +10,17 @@ const IndexScreen = ({ navigation }) => {
   const { state, deleteBlogPost, getBlogPosts } = useContext(BlogContext)
 
   useEffect(() => {
+    //  the first time we show index screen do one fetch
     getBlogPosts()
+    //  every time we navigate back to index screen fetch again once
+    const listener = navigation.addListener('didFocus', () => {
+      getBlogPosts()
+    })
+
+    // if we completely remove screen do some clean up
+    return () => {
+      listener.remove()
+    }
   }, [])
 
   return (

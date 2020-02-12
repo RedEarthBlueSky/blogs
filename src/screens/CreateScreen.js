@@ -5,14 +5,18 @@ import { Context } from '../context/BlogContext'
 import BlogPostForm from '../components/BlogPostForm'
 
 const CreateScreen = ({ navigation }) => {
-  const { addBlogPost } = useContext(Context)
-
+  const { addBlogPost, state } = useContext(Context)
+  // console.log('CreateScreen state - ', state)
   return (
     <View>
       <BlogPostForm
         screen='Create'
         onSubmit={(title, content) => {
-          addBlogPost(title, content, () => navigation.navigate('Index'))
+          if (title !== '' && content !== '') {
+            addBlogPost(title, content, () => navigation.navigate('Index'))
+            // console.log('CreateScreen onsubmit state: ', state)
+          }
+          console.log('Title and Content must have data!')
         }}
       />
     </View>

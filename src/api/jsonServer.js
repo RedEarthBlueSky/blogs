@@ -5,5 +5,5 @@ import axios from 'axios'
 
 export default axios.create({
   // from ngrok, updates every eight hours
-  baseURL: 'http://23c4d8c5.ngrok.io'
+  baseURL: 'http://506c5305.ngrok.io'
 })
