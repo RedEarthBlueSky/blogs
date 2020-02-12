@@ -1,6 +1,6 @@
 //  using the jsonserver folder
 //  using json-server and ngrok as dummy api we
-//  can persist data to
+//  can persist data to, and retrieve data from
 import axios from 'axios'
 
 export default axios.create({
